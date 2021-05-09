@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+
+	<p th:text="${img.name}"/>
+	<img th:src="${url}">
+	<!-- <img th:src=""/> -->
+
+   <!-- <p th:text="'Images'" />
+    <div th:each="img: ${allImages}">
+    	<p th:text="${img.path}"/>
+    	 <img th:src="'localhost:9000/images/'+${img.path}"/> 
+    	
+    	
+    </div>-->
+</body>
+</html>
