@@ -5,28 +5,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import io.minio.BucketExistsArgs;
 import io.minio.GetPresignedObjectUrlArgs;
-import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
-import io.minio.UploadObjectArgs;
 import io.minio.errors.ErrorResponseException;
 import io.minio.errors.InsufficientDataException;
 import io.minio.errors.InternalException;
 import io.minio.errors.InvalidResponseException;
-import io.minio.errors.MinioException;
 import io.minio.errors.ServerException;
 import io.minio.errors.XmlParserException;
 import io.minio.http.Method;
 
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
@@ -40,26 +34,16 @@ public class ImageController {
 
 	@GetMapping("/images")
 	public String images(Model model) {
-		MinioClientFactory mcf = new MinioClientFactory();
-		MinioClient mc = null;
-		mc = mcf.getClient();
 		ArrayList<Image> allImages = (ArrayList<Image>) imageRepository.findAll();
 		for (Image i : allImages) {
 			System.out.println(i.getPath());
 		}
-		//System.out.println(allImages.getClass());
 		String url=null;
-		/*
 
-		}
-		 */
 		System.out.println(url);
 		model.addAttribute("allImages",allImages);
 		return "images";
 	}
-	//@GetMapping("/view/{id}")
-	//@GetMapping("/edit/{id}")
-	//@GetMapping("/delete/{id}")
 
 	@PostMapping("/create")
 	public String newImage(@RequestParam("file") MultipartFile file) {
@@ -82,7 +66,6 @@ public class ImageController {
 		} catch (InvalidKeyException | ErrorResponseException | InsufficientDataException | InternalException
 				| InvalidResponseException | NoSuchAlgorithmException | ServerException | XmlParserException
 				| IllegalArgumentException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -127,8 +110,6 @@ public class ImageController {
 			}
 			System.out.println(url);
 			model.addAttribute("url", url);
-
-
 			return "image";
 		}
 	}
@@ -153,11 +134,6 @@ public class ImageController {
 			imageRepository.deleteById(imageId);
 
 		}
-
-
-		
 		return "images";
-		
 	}
-	
 }
