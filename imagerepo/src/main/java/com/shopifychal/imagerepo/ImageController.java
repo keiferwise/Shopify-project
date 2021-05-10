@@ -36,11 +36,9 @@ public class ImageController {
 	public String images(Model model) {
 		ArrayList<Image> allImages = (ArrayList<Image>) imageRepository.findAll();
 		for (Image i : allImages) {
-			System.out.println(i.getPath());
 		}
 		String url=null;
 
-		System.out.println(url);
 		model.addAttribute("allImages",allImages);
 		return "images";
 	}
@@ -85,13 +83,11 @@ public class ImageController {
 		MinioClient mc = null;
 		mc = mcf.getClient();
 		Optional<Image> img = imageRepository.findById(imageId);
-		//System.out.println(img.get().getName());
 		if(img.isEmpty()) {
 			return "images";
 		}
 		else {
 			String imgName=img.get().getName();
-			System.out.println(imgName);
 			model.addAttribute("img", img.get());
 			String url=null;
 			try {
@@ -108,7 +104,6 @@ public class ImageController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println(url);
 			model.addAttribute("url", url);
 			return "image";
 		}
